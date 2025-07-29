@@ -103,13 +103,6 @@ This data helps simulate real-world use cases for testing and demonstration.
 
 ---
 
-
-## 📃 License
-
-This project is free to use for educational and non-commercial purposes. Attribution is appreciated.
-
----
-
 ## 👤 Author
 
 **Atharv Gajanan Shete**  
