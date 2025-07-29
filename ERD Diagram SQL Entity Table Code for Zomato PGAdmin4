@@ -1,0 +1,105 @@
+-- Create Users table
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY,
+    Username VARCHAR(50),
+    Email VARCHAR(100),
+    FullName VARCHAR(100),
+    RegistrationDate DATE
+);
+
+INSERT INTO Users VALUES
+(1, 'alice123', 'alice@example.com', 'Alice Smith', '2022-01-10'),
+(2, 'bob_the_chef', 'bob@example.com', 'Bob Johnson', '2022-05-15'),
+(3, 'charlie_eats', 'charlie@example.com', 'Charlie Lee', '2023-02-20');
+
+-- Create Restaurants table
+CREATE TABLE Restaurants (
+    RestaurantID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Location VARCHAR(100),
+    CuisineType VARCHAR(100),
+    AvgRating DECIMAL(2,1),
+    ContactInfo VARCHAR(20),
+    OpeningHours VARCHAR(50)
+);
+
+INSERT INTO Restaurants VALUES
+(101, 'The Spice Hub', 'Mumbai', 'Indian', 4.5, '+911234567890', '10:00 - 22:00'),
+(102, 'Green Bowl', 'Delhi', 'Healthy', 4.2, '+919876543210', '09:00 - 23:00');
+
+-- Create MenuItems table
+CREATE TABLE MenuItems (
+    MenuItemID INT PRIMARY KEY,
+    RestaurantID INT,
+    Name VARCHAR(100),
+    Price DECIMAL(10,2),
+    Category VARCHAR(50),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID)
+);
+
+INSERT INTO MenuItems VALUES
+(1001, 101, 'Butter Chicken', 350.00, 'Main Course'),
+(1002, 101, 'Paneer Tikka', 250.00, 'Starter'),
+(1003, 102, 'Quinoa Salad', 300.00, 'Healthy');
+
+-- Create Orders table
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    UserID INT,
+    RestaurantID INT,
+    OrderDate DATETIME,
+    TotalAmount DECIMAL(10,2),
+    Status VARCHAR(20),
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID)
+);
+
+INSERT INTO Orders VALUES
+(5001, 1, 101, '2023-07-10 13:00:00', 600.00, 'Delivered'),
+(5002, 2, 102, '2023-07-11 18:30:00', 300.00, 'Pending');
+
+-- Create OrderDetails table (Many-to-Many between Orders and MenuItems)
+CREATE TABLE OrderDetails (
+    OrderDetailID INT PRIMARY KEY,
+    OrderID INT,
+    MenuItemID INT,
+    Quantity INT,
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
+    FOREIGN KEY (MenuItemID) REFERENCES MenuItems(MenuItemID)
+);
+
+INSERT INTO OrderDetails VALUES
+(1, 5001, 1001, 1),
+(2, 5001, 1002, 1),
+(3, 5002, 1003, 1);
+
+-- Create Reviews table
+CREATE TABLE Reviews (
+    ReviewID INT PRIMARY KEY,
+    UserID INT,
+    RestaurantID INT,
+    Rating INT,
+    ReviewText TEXT,
+    ReviewDate DATE,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID)
+);
+
+INSERT INTO Reviews VALUES
+(9001, 1, 101, 5, 'Great food!', '2023-07-12'),
+(9002, 3, 102, 4, 'Very fresh and tasty.', '2023-07-15');
+
+-- Create Reservations table
+CREATE TABLE Reservations (
+    ReservationID INT PRIMARY KEY,
+    UserID INT,
+    RestaurantID INT,
+    BookingTime DATETIME,
+    Guests INT,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID),
+    FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID)
+);
+
+INSERT INTO Reservations VALUES
+(3001, 2, 101, '2023-07-16 19:00:00', 2),
+(3002, 3, 102, '2023-07-17 20:30:00', 4);
