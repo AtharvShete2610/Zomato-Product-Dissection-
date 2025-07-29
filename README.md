@@ -35,7 +35,7 @@ This project demonstrates a robust, production-ready backend structure for devel
 - Users can rate and review restaurants.
 - Reviews are tied to both the user and the restaurant with a timestamp and written feedback.
 
-### 5. 🚚 Delivery Management *(Future Scope / Extension)*
+### 5. 🚚 Delivery Management 
 - Assign delivery partners to fulfill orders.
 - Track delivery routes, optimize logistics, and manage delivery times (planned via `DeliveryPartners` and `DeliveryRoutes` tables).
 
@@ -100,10 +100,6 @@ This data helps simulate real-world use cases for testing and demonstration.
 ## 🛠️ Tech Stack
 
 - **SQL** (MySQL or PostgreSQL)
-- Can be integrated with:
-  - Backend APIs (e.g., Node.js, Flask)
-  - Analytics tools (e.g., Power BI, Tableau)
-  - Mobile or Web frontends
 
 ---
 
